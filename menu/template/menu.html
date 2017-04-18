@@ -1,0 +1,63 @@
+
+{% extends "mainpage.html" %}
+{% block materialize%}
+
+{% load static %}
+<script type="text/javascript" src="{% static "js/angular.min.js"%}"></script>
+<!-- <script type="text/javascript" src="{% static "djng/js/django-angular.min.js" %}"></script> -->
+{% endblock %}
+{% block content %}
+<h2>Welcome To My fully Automated Restaurant</h2>
+
+<form action="/menu/" method="post">
+<div class="row">
+<div class="col l12">
+  <table ng-app="">
+        <thead>
+          <tr>
+              <th></th>
+              <th>Item Name</th>
+              <th>Item Price</th>
+              <th>Select</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+          </tr>
+        </thead>
+
+        <tbody>
+        {% csrf_token %}
+  {% for m in menu %}
+     <br>
+          <tr>
+            <td>{{m.id}}</td>
+            <td>{{m.name}}</td>
+            <td>{{m.price}}</td>              
+            <td><input type="checkbox" id="test{{m.id}}" ng-model="order_select{{m.id}}" name="order[]" value="{{m.id}}" />
+      <label for="test{{m.id}}">Click to add</label></td>
+            <td><input type="number" name="order_qty{{m.id}}" min="1" ng-model="order_qty{{m.id}}" ng-disabled="!order_select{{m.id}}" ng-required="!order_select{{m.id}}" ng-init="order_qty{{m.id}}=0"></td>
+            <td ng-bind="order_qty{{m.id}}*{{m.price}}"></td>
+          </tr>
+    {% endfor %}   
+          <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>  
+        </tbody>
+      </table>
+      <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+        <i class="material-icons right">send</i>
+      </button>     
+      </form>
+	<script type="text/javascript">
+   $(document).ready(function() {
+    $('select').material_select();
+    $('.modal').modal();
+  });
+
+  </script>
+	
+{% endblock %}
