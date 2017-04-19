@@ -16,7 +16,7 @@ class Waiter(models.Model):
 		('N','Not Attended'),
 		)
 	task = models.CharField(max_length=1,choices=task_choices)
-	order_id = models.IntegerField(max_length=3)
-	table = models.IntegerField(max_length=5)
+	order_id = models.IntegerField()
+	table = models.IntegerField()
 	status = models.CharField(max_length=1,choices=status_choices)
 	objects = WaiterManager()

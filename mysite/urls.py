@@ -19,7 +19,7 @@ from django.contrib.auth import views as auth_view
 from log.forms import LoginForm
 
 urlpatterns = [
-    url(r'^login/$', auth_view.login, {'template_name': 'login.html', 'authentication_form': LoginForm}, name='login'),
+    url(r'^login/$', include('log.urls')),
     url(r'^logout/$', auth_view.logout, {'next_page': '/login'}, name='logout'),
 	url(r'^polls/', include('polls.urls')),
     url(r'^chef/', include('chef.urls')),

@@ -14,7 +14,7 @@ def chefview(request):
 	for o in customer_orders:
 		item = FoodItem.objects.get(id=o.food_id)
 		print item.name
-		orders_chef_view.append({'order':o.id,'food_name':item.name,'qty':o.qty,'status':o.status})
+		orders_chef_view.append({'id':o.id,'order':o.order_id,'food_name':item.name,'qty':o.qty,'status':o.status})
 		print orders_chef_view
 	return render(request,"chefview.html",{'chef':orders_chef_view})
 
